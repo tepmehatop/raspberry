@@ -1,0 +1,32 @@
+#################################################
+# Base configuration
+#################################################
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  MAKEFILE_JOBS: 5
+  CCACHE_SIZE: 2G
+  DEFAULT_LINUX_CMAKE_OPTIONS: -DENABLE_NON_FREE_CODECS=YES -DENABLE_OPENH264=YES
+  DEFAULT_MACOS_CMAKE_OPTIONS: -DCMAKE_OSX_DEPLOYMENT_TARGET=10.11 -DENABLE_UPDATE_CHECK=YES
+  DEFAULT_WINDOWS_CMAKE_OPTIONS: -DENABLE_NON_FREE_CODECS=YES -DENABLE_OPENH264=YES -DENABLE_UPDATE_CHECK=YES
+
+
+#################################################
+# Platforms to test
+#################################################
+
+include:
+  - '.gitlab-ci-files/job-linux.yml'
+  - '.gitlab-ci-files/job-linux-archlinux.yml'
+  - '.gitlab-ci-files/job-linux-centos7.yml'
+  - '.gitlab-ci-files/job-linux-debian8.yml'
+  - '.gitlab-ci-files/job-linux-debian9.yml'
+  - '.gitlab-ci-files/job-linux-ubuntu.yml'
+  - '.gitlab-ci-files/job-macosx.yml'
+  - '.gitlab-ci-files/job-windows.yml'
+
+
+stages:
+  - build
+  - package
+  - deploy
